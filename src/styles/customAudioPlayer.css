@@ -1,0 +1,11 @@
+.custom-audio-player {
+  --rhap_theme-color: #32CD32;
+  --rhap_background-color: #1f2937;
+  --rhap_bar-color: #d1d5db;
+  --rhap_time-color: #e5e7eb;
+  --rhap_font-color: #f9fafb;
+  --rhap_slider-color: #32CD32;
+  --rhap_slider-track-color: #4b5563;
+  --rhap_icon-color: #9ca3af;
+  --rhap_icon-hover-color: #cbd5e1;
+}

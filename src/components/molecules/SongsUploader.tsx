@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface SongsUploaderProps {
   onSongUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }

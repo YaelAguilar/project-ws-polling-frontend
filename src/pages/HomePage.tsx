@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import Header from '../components/atoms/Header';
 import NotificationService from '../services/NotificationService';
 import { Album } from '../types';
+import AlbumList from '../components/organisms/AlbumList';
+import Notification from '../components/atoms/Notification';
+import SearchIcon from '../components/atoms/SearchIcon';
 
 const HomePage: React.FC = () => {
   const [albums, setAlbums] = useState<Album[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [notifications, setNotifications] = useState<Album[]>([]);
 
   const fetchAlbums = async () => {
     try {
@@ -35,39 +38,30 @@ const HomePage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    let isSubscribed = true;
+
     const subscribeToNewAlbums = async () => {
-      try {
-        const newAlbum = await NotificationService.waitForNewAlbum();
-        setAlbums(prevAlbums => [...prevAlbums, newAlbum]);
-        showNotification(newAlbum);
-        subscribeToNewAlbums();
-      } catch (error) {
-        setError('An error occurred while receiving new album notifications');
+      while (isSubscribed) {
+        try {
+          const newAlbum = await NotificationService.waitForNewAlbum();
+          setAlbums(prevAlbums => [...prevAlbums, newAlbum]);
+          setNotifications(prevNotifications => [...prevNotifications, newAlbum]);
+        } catch (error) {
+          setError('An error occurred while receiving new album notifications');
+        }
       }
     };
 
     subscribeToNewAlbums();
 
-    return () => NotificationService.cancelPolling();
+    return () => {
+      isSubscribed = false;
+      NotificationService.cancelPolling();
+    };
   }, []);
 
-  const showNotification = (album: Album) => {
-    const notification = document.createElement('div');
-    notification.className = 'fixed bottom-4 right-4 bg-gray-800 text-white p-4 rounded shadow flex items-center space-x-4';
-    notification.style.width = '300px';
-    notification.style.height = '100px';
-    notification.innerHTML = `
-      <img src="${album.coverImage}" alt="Cover" class="w-16 h-16 object-cover rounded" />
-      <div>
-        <strong class="block">¡Nuevo lanzamiento!</strong>
-        <span class="block">${album.title}</span>
-        <span class="block text-gray-400">${album.artist}</span>
-      </div>
-    `;
-    document.body.appendChild(notification);
-    setTimeout(() => {
-      document.body.removeChild(notification);
-    }, 5000);
+  const handleNotificationClose = (index: number) => {
+    setNotifications(prevNotifications => prevNotifications.filter((_, i) => i !== index));
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -108,51 +102,15 @@ const HomePage: React.FC = () => {
               <h2 className="text-2xl md:text-3xl font-bold">Featured Albums</h2>
               <p className="text-gray-400">Discover the latest and greatest albums in our library.</p>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {albums.map((album) => (
-                <Link className="group" to="#" key={album.id}>
-                  <div className="aspect-square bg-gray-800 rounded-lg overflow-hidden">
-                    <img
-                      alt="Album Cover"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      src={album.coverImage}
-                      style={{ aspectRatio: '1 / 1', objectFit: 'cover' }}
-                    />
-                  </div>
-                  <h3 className="mt-2 text-lg font-medium group-hover:text-indigo-500 transition-colors duration-300">
-                    {album.title}
-                  </h3>
-                  <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                    {album.artist}
-                  </p>
-                </Link>
-              ))}
-            </div>
+            <AlbumList albums={albums} />
           </div>
         </section>
       </div>
+      {notifications.map((album, index) => (
+        <Notification key={index} album={album} onClose={() => handleNotificationClose(index)} />
+      ))}
     </>
   );
 };
-
-function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="11" cy="11" r="8" />
-      <path d="m21 21-4.3-4.3" />
-    </svg>
-  );
-}
 
 export default HomePage;

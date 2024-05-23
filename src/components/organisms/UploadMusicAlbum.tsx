@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import AlbumCoverUploader from '../molecules/AlbumCoverUploader';
 import AlbumDetailsForm from '../molecules/AlbumDetailsForm';
 import SongsUploader from '../molecules/SongsUploader';
@@ -157,6 +157,7 @@ const UploadMusicAlbum: React.FC = () => {
       )}
     </main>
   );
+  
 };
 
 export default UploadMusicAlbum;

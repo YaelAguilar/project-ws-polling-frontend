@@ -1,4 +1,3 @@
-import React from 'react';
 
 interface AlbumCoverUploaderProps {
   onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
