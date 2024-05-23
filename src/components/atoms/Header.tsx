@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   return (
     <header className="bg-gradient-to-r from-indigo-950 to-purple-950 text-white w-full p-4">
       <div className="container mx-auto flex justify-between items-center px-4 md:px-6 lg:w-3/4">
-        <h1 className="text-lg md:text-xl font-bold">Melodic Bliss</h1>
+        <h1 className="text-lg md:text-xl font-bold">Spotifake 2</h1>
         <div>
           {isLoggedIn ? (
             <>

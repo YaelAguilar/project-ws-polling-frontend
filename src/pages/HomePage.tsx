@@ -4,7 +4,6 @@ import NotificationService from '../services/NotificationService';
 import { Album } from '../types';
 import AlbumList from '../components/organisms/AlbumList';
 import Notification from '../components/atoms/Notification';
-import SearchIcon from '../components/atoms/SearchIcon';
 
 const HomePage: React.FC = () => {
   const [albums, setAlbums] = useState<Album[]>([]);
@@ -75,23 +74,15 @@ const HomePage: React.FC = () => {
           <div className="container mx-auto px-4 md:px-6 lg:w-3/4">
             <div className="grid gap-8 md:grid-cols-[1fr_400px] md:gap-12 items-center">
               <div className="space-y-4">
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Melodic Bliss</h1>
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Spotifake 2</h1>
                 <p className="text-gray-300 max-w-md">
                   Explore a vast library of music, curated for your listening pleasure.
                 </p>
-                <div className="relative">
-                  <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                  <input
-                    className="pl-10 pr-4 py-2 rounded-md bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 w-full"
-                    placeholder="Search for artists, albums, and more"
-                    type="search"
-                  />
-                </div>
               </div>
               <img
                 alt="Album Cover"
                 className="aspect-square object-cover rounded-xl"
-                src="/placeholder.svg"
+                src="https://img.icons8.com/?size=100&id=11116&format=png&color=7950F2"
               />
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import H5AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import TrackList from '../components/organisms/TrackList';
@@ -53,6 +54,11 @@ const AlbumPage: React.FC = () => {
 
   return (
     <div className="bg-gray-900 text-white min-h-screen py-12 px-4 md:px-6 lg:px-8">
+      <Link to="/" className="inline-block mb-4">
+          <button className="bg-indigo-500 hover:bg-indigo-300 text-white font-bold py-2 px-4 rounded">
+            &larr; Volver a la página principal
+          </button>
+        </Link>
       <div className="container mx-auto">
         <div className="text-center">
           <img
