@@ -1,30 +1,56 @@
-# React + TypeScript + Vite
+# Music Album Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción
 
-Currently, two official plugins are available:
+Este es el frontend del proyecto de gestión de álbumes de música. Proporciona una interfaz de usuario para subir nuevos álbumes, ver detalles de álbumes y reproducir canciones.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologías Utilizadas
 
-## Expanding the ESLint configuration
+- React
+- TypeScript
+- Tailwind CSS
+- React Router
+- H5AudioPlayer
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Instalación
 
-- Configure the top-level `parserOptions` property like this:
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/YaelAguilar/project-ws-polling-frontend.git
+   ```
+2. Navega al directorio del proyecto:
+   ```bash
+   cd project-ws-polling-frontend
+   ```
+3. Instala las dependencias:
+   ```bash
+   npm install
+   ```
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Uso
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+1. Inicia la aplicación:
+   ```bash
+   npm run dev
+   ```
+2. La aplicación debería estar corriendo en `http://localhost:5173`.
+
+## Estructura del Proyecto
+
+El proyecto sigue la metodología Atomic Design para la organización de los componentes:
+
+- **Atoms**: Componentes básicos e indivisibles.
+- **Molecules**: Combinaciones de átomos que forman bloques funcionales.
+- **Organisms**: Secciones completas de la interfaz formadas por moléculas.
+- **Pages**: Páginas completas de la aplicación que utilizan organismos.
+
+## Funcionalidades
+
+- Subir un nuevo álbum con imagen de portada y canciones.
+- Ver la lista de álbumes disponibles.
+- Ver los detalles de un álbum específico.
+- Reproducir canciones de un álbum.
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT.
