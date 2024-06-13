@@ -37,25 +37,13 @@ const HomePage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    let isSubscribed = true;
-
-    const subscribeToNewAlbums = async () => {
-      while (isSubscribed) {
-        try {
-          const newAlbum = await NotificationService.waitForNewAlbum();
-          setAlbums(prevAlbums => [...prevAlbums, newAlbum]);
-          setNotifications(prevNotifications => [...prevNotifications, newAlbum]);
-        } catch (error) {
-          setError('An error occurred while receiving new album notifications');
-        }
-      }
-    };
-
-    subscribeToNewAlbums();
+    const unsubscribe = NotificationService.waitForNewAlbum((newAlbum) => {
+      setAlbums(prevAlbums => [...prevAlbums, newAlbum]);
+      setNotifications(prevNotifications => [...prevNotifications, newAlbum]);
+    });
 
     return () => {
-      isSubscribed = false;
-      NotificationService.cancelPolling();
+      unsubscribe();
     };
   }, []);
 
